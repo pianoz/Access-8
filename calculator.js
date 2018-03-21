@@ -20,7 +20,7 @@ function getSelectedItem() {
 	}
 	else {
 		return "#" + selected.first().attr('id')
-	} 
+	}
 }
 
 // the next four functions move the selected UI control
@@ -53,7 +53,7 @@ function selectPrevious() {
 		index = (index - 1);
 		if (index < 0) index = buttonOrder.length + index
 		selectItem(buttonOrder[index])
-	}	
+	}
 }
 
 function selectUp() {
@@ -91,12 +91,50 @@ function clickSelectedItem() {
 
 // this function responds to user key presses
 // you'll rewrite this to control your interface using some number of keys
+mode = 3;
 $(document).keypress(function(event) {
-	if (event.key == "a") {
-		alert("You pressed the 'a' key!")	
-	} else if (event.key == "b") {
-		alert("You pressed the 'b' key!")
+	if (event.key == "2") {
+		alert("Using 2 switch mode")
+		mode = 2;
+	} else if (event.key == "3") {
+		alert("using 3 switch mode")
+		mode = 3;
+	}	else if (event.key == "5") {
+		alert("using 5 switch mode")
+		mode = 5;
+
+	} else if (event.key == "1") {
+		alert("plese select valid switching mode")
+	} else if (event.key == "4") {
+		alert("plese select valid switching mode")
+
+
+	}	else if (event.key == "d") {
+		selectNext();
+	} else if (event.key == " ") {
+		clickSelectedItem();
+	} else if (event.key == "a") {
+		if (mode == 2){
+			alert("Input incompatible with switchng mode")
+		}	else {
+			selectPrevious();
+		}
+	} else if (event.key == "w") {
+		if (mode == 5) {
+			selectUp();
+		} else {
+			alert("Input incompatible with switchng mode")
+		}
+	} else if (event.key == "s") {
+		if (mode == 5) {
+			selectDown();
+		} else {
+			alert("Input incompatible with switchng mode")
+		}
+	} else {
+		alert("selected input does not exist")
 	}
+
 })
 
 
@@ -112,7 +150,7 @@ operators = "+-*/"
 // handle calculator functions. all buttons with class calcButton will be handled here
 $(".calcButton").click(function(event) {
 	buttonLabel = $(this).text();
-	
+
 	// if it's a number, add it to our display
 	if (digits.indexOf(buttonLabel) != -1) {
 		// if we weren't just adding a number, clear our screen
@@ -170,7 +208,7 @@ function evaluateExpression(first,op,second) {
 	} else if (op == "/") {
 		output = parseInt(first) / parseInt(second);
 	}
-	
+
 	// now, handle it
 	$("#number_input").val(output.toString());
 	// deal with state elsewhere
